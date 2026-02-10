@@ -16,3 +16,4 @@ Route::get('/home', function () {
 })->middleware(['auth'])->name('home');
 
 Route::resource('hardware', HardwareController::class);
+Route::get('/hardware', [HardwareController::class, 'index'])->name('hardware.index');
