@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HardwhearController;
+use App\Http\Controllers\HardwareController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,4 +15,4 @@ Route::get('/home', function () {
     return view('home');
 })->middleware(['auth'])->name('home');
 
-Route::resource('hardwhear', HardwhearController::class);
+Route::resource('hardware', HardwareController::class);
