@@ -17,3 +17,5 @@ Route::get('/home', function () {
 
 Route::resource('hardware', HardwareController::class);
 Route::get('/hardware', [HardwareController::class, 'index'])->name('hardware.index');
+Route::get('/hardware/create', [HardwareController::class, 'create'])->name('hardware.create');
+Route::post('/hardware', [HardwareController::class, 'store'])->name('hardware.store');

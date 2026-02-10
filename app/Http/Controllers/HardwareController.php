@@ -26,6 +26,7 @@ class HardwareController extends Controller
 
     public function store(Request $request)
     {
+        //dd($request->all());
         $validated = $request->validate([
             'name' => 'required',
             'total' => 'required|integer',
@@ -34,7 +35,7 @@ class HardwareController extends Controller
 
         Hardware::create($validated);
 
-        return redirect()->route('hardware.index')->with('success', 'Hardware created successfully.');
+        return redirect()->route('hardware.index')->with('success', 'Hardware created successfully.'); 
     }
 
     public function show(string $id)
@@ -65,4 +66,6 @@ class HardwareController extends Controller
         $hardware->delete();
         return redirect()->route('hardware.index')->with('success', 'hardware deleted!');
     }
+
+    
 }
