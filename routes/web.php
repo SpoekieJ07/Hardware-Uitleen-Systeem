@@ -15,4 +15,4 @@ Route::get('/home', function () {
     return view('home');
 })->middleware(['auth'])->name('home');
 
-Route::resource('hardwhear', HardwhearController::class);
+Route::resource('hardwhear', SoftwareController::class);
