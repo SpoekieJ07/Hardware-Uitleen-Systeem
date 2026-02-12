@@ -17,7 +17,7 @@
                 <!-- Name -->
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
-                        Naam
+                        Name
                     </label>
                     <input type="text"
                         name="name"

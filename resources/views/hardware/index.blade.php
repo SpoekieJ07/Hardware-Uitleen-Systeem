@@ -56,6 +56,11 @@
                                 @csrf
                                 @method('DELETE')
 
+                                <a href="{{ route ('uitleen.index')}}"
+                                class="rounded-lg bg-red-500 px-3 py-2 text-xs font-semibold text-white hover:bg-red-600 transition">
+                                Uitleenen
+                            </a>
+
                                 <button type="submit"
                                     class="rounded-lg bg-red-600 px-3 py-2 text-xs font-semibold text-white hover:bg-red-700 transition">
                                     Delete
