@@ -18,7 +18,7 @@
             </h1>
 
             <nav class="space-x-6">
-                <a href="/" class="text-gray-600 hover:text-blue-600 transition">
+                <a href="/hardware" class="text-gray-600 hover:text-blue-600 transition">
                     Home
                 </a>
                 <a href="/dashboard" class="text-gray-600 hover:text-blue-600 transition">
