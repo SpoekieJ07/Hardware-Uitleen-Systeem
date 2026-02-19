@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between mb-6">
         <div>
             <h2 class="text-2xl font-bold text-gray-800">Hardware List</h2>
-            <p class="text-sm text-gray-500">Overview of all hardware items</p>
+            <p class="text-sm text-gray-500">Overzicht van alle uitleningen</p>
         </div>
 
         <!-- Nieuwe hardware knop -->

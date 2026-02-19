@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Uitleen;
+use App\Http\Controllers\Controller;
 
 class UitleenController extends Controller
 {
     public function index()
     {
-        return view('uitleen.index');
+        return view('uitleen.index', [
+            'uitleen' => Uitleen::all()
+        ]);
     }
 
 
