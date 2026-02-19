@@ -61,6 +61,12 @@
                                 Uitleenen
                             </a>
 
+                            <a href="{{ route('hardware.show', $item->id) }}"
+                                class="rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-700 transition">
+                                Details
+                            </a>
+
+
                                 <button type="submit"
                                     class="rounded-lg bg-red-600 px-3 py-2 text-xs font-semibold text-white hover:bg-red-700 transition">
                                     Delete

@@ -38,11 +38,6 @@ class HardwareController extends Controller
         return redirect()->route('hardware.index')->with('success', 'Hardware created successfully.'); 
     }
 
-    public function show(string $id)
-    {
-        //
-    }
-
     public function edit(Hardware $hardware)
     {
             return view('hardware.edit', compact('hardware'));
@@ -67,5 +62,10 @@ class HardwareController extends Controller
         return redirect()->route('hardware.index')->with('success', 'hardware deleted!');
     }
 
-    
+public function show(string $id)
+{
+    $hardware = Hardware::findOrFail($id);
+    return view('hardware.details', compact('hardware'));
+}
+
 }
