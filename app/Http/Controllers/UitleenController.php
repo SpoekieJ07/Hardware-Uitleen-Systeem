@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hardware;
 use Illuminate\Http\Request;
+use App\Models\Uitleen;
+use App\Http\Controllers\Controller;
 
 class UitleenController extends Controller
 {
     public function index()
     {
-        $hardwares = Hardware::all();
-
-        return view('uitleen.index', compact('hardwares'));
+        return view('uitleen.index', [
+            'uitleen' => Uitleen::all()
+        ]);
     }
 
 
@@ -50,4 +51,8 @@ class UitleenController extends Controller
     {
         //
     }
+
+
+
+    
 }
