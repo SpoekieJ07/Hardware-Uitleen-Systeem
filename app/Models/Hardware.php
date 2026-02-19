@@ -8,4 +8,5 @@ class Hardware extends Model
 {
     protected $fillable = ['name', 'total', 'price'];
     
+    
 }
