@@ -57,9 +57,15 @@
                                 @method('DELETE')
 
                                 <a href="{{ route ('uitleen.index')}}"
-                                class="rounded-lg bg-red-500 px-3 py-2 text-xs font-semibold text-white hover:bg-red-600 transition">
-                                Uitleenen
-                            </a>
+                                    class="rounded-lg bg-red-500 px-3 py-2 text-xs font-semibold text-white hover:bg-red-600 transition">
+                                    Uitleenen
+                                </a>
+                                <a href="{{ route('loan_requests.create', ['hardware_id' => $hardware->id]) }}"
+                                    class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 shadow">
+                                    Uitleenverzoek indienen
+                                </a>
+
+
 
                                 <button type="submit"
                                     class="rounded-lg bg-red-600 px-3 py-2 text-xs font-semibold text-white hover:bg-red-700 transition">

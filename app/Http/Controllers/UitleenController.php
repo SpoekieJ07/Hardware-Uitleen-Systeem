@@ -11,7 +11,7 @@ class UitleenController extends Controller
     public function index()
     {
         return view('uitleen.index', [
-            'uitleen' => Uitleen::all()
+            'uitleen' => Uitleen::with(['hardware', 'user'])->get(),
         ]);
     }
 

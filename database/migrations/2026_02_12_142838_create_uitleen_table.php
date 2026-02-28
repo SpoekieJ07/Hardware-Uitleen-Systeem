@@ -13,9 +13,16 @@ return new class extends Migration
     {
         Schema::create('uitleen', function (Blueprint $table) {
             $table->id();
-            $table->string('hardware_name');
-            $table->integer('quantity');
-            $table->string('borrower_name');
+
+            $table->foreignId('hardware_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+
+            $table->unsignedInteger('quantity')->default(1);
+            $table->dateTime('loaned_at')->nullable();
+            $table->dateTime('due_at')->nullable();
+            $table->dateTime('returned_at')->nullable();
+
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
