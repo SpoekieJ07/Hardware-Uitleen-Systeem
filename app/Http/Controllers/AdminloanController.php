@@ -6,8 +6,9 @@ use App\Models\User;
 use App\Models\LoanRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
-class AdminLoanRequestController extends Controller
+class AdminloanController extends Controller
 {
     public function index()
     {
@@ -41,7 +42,7 @@ class AdminLoanRequestController extends Controller
 
                 $loanRequest->update([
                     'status' => 'approved',
-                    'reviewed_by' => auth()->id(),
+                    'reviewed_by' => Auth::id(),
                     'reviewed_at' => now(),
                 ]);
             });
@@ -64,7 +65,7 @@ class AdminLoanRequestController extends Controller
 
         $loanRequest->update([
             'status' => 'rejected',
-            'reviewed_by' => auth()->id(),
+            'reviewed_by' => Auth::id(),
             'reviewed_at' => now(),
             'review_notes' => $data['review_notes'] ?? null,
         ]);

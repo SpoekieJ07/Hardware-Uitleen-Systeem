@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HardwareController;
 use App\Http\Controllers\UitleenController;
 use App\Http\Controllers\LoanRequestController;
-use App\Http\Controllers\AdminLoanController;
+use App\Http\Controllers\AdminloanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,7 +36,7 @@ Route::get('/my-loan-requests', [LoanRequestController::class, 'my'])->name('loa
 
 
 Route::middleware(['auth', 'can:manage-loans'])->group(function () {
-    Route::get('/admin/loan-requests', [AdminLoanController::class, 'index'])->name('admin.loan_requests.index');
-    Route::post('/admin/loan-requests/{loanRequest}/approve', [AdminLoanController::class, 'approve'])->name('admin.loan_requests.approve');
-    Route::post('/admin/loan-requests/{loanRequest}/reject', [AdminLoanController::class, 'reject'])->name('admin.loan_requests.reject');
+    Route::get('/admin/loan-requests', [AdminloanController::class, 'index'])->name('admin.loan_requests.index');
+    Route::post('/admin/loan-requests/{loanRequest}/approve', [AdminloanController::class, 'approve'])->name('admin.loan_requests.approve');
+    Route::post('/admin/loan-requests/{loanRequest}/reject', [AdminloanController::class, 'reject'])->name('admin.loan_requests.reject');
 });
