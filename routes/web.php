@@ -40,3 +40,5 @@ Route::middleware(['auth', 'can:manage-loans'])->group(function () {
     Route::post('/admin/loan-requests/{loanRequest}/approve', [AdminloanController::class, 'approve'])->name('admin.loan_requests.approve');
     Route::post('/admin/loan-requests/{loanRequest}/reject', [AdminloanController::class, 'reject'])->name('admin.loan_requests.reject');
 });
+
+require __DIR__ . '/auth.php';
