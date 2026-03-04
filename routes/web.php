@@ -35,10 +35,7 @@ Route::post('/loan-requests', [LoanRequestController::class, 'store'])->name('lo
 Route::get('/my-loan-requests', [LoanRequestController::class, 'my'])->name('loan_requests.my');
 
 
+Route::get('/admin/uitleen/pending', [AdminUitleenController::class, 'pending'])->name('admin.uitleen.pending');
+Route::post('/admin/uitleen/{uitleen}/approve', [AdminUitleenController::class, 'approve'])->name('admin.uitleen.approve');
 
 
-Route::get('/admin/uitleen/pending', [AdminUitleenController::class, 'pending'])
-    ->name('admin.uitleen.pending');
-
-Route::post('/admin/uitleen/{uitleen}/approve', [AdminUitleenController::class, 'approve'])
-    ->name('admin.uitleen.approve');
