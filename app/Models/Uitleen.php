@@ -6,21 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Uitleen extends Model
 {
+    protected $table = 'uitleen';
+
     protected $fillable = [
         'hardware_id',
-        'user_id',
         'quantity',
-        'lent_at',
-        'returned_at',
+        'borrower_name'
     ];
 
     public function hardware()
     {
         return $this->belongsTo(Hardware::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 }
