@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('uitleen', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('hardware_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('hardware_id')->constrained('hardware')->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable();
 
             $table->unsignedInteger('quantity')->default(1);
             $table->dateTime('loaned_at')->nullable();
             $table->dateTime('due_at')->nullable();
             $table->dateTime('returned_at')->nullable();
+            $table->boolean('is_returned')->default(false);
+            $table->string('borrower_name')->nullable();
 
             $table->text('notes')->nullable();
             $table->timestamps();

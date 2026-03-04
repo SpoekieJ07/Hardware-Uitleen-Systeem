@@ -1,29 +1,32 @@
-<h1>Uitleenverzoek indienen</h1>
+    <x-app-layout>
+        <h1>Uitleenverzoek indienen</h1>
 
-<form method="POST" action="{{ route('uitleen.store') }}">
-    @csrf
+    <form method="POST" action="{{ route('uitleen.store') }}">
+        @csrf
 
-    <label>Hardware item:</label>
-    <select name="hardware_id" required>
-        @foreach($hardware as $item)
+        <label>Hardware item:</label>
+        <select name="hardware_id" required>
+            @foreach($hardware as $item)
             <option value="{{ $item->id }}">
                 {{ $item->name }} ({{ $item->total }} beschikbaar)
             </option>
-        @endforeach
-    </select>
+            @endforeach
+        </select>
 
-    <br><br>
+        <br><br>
 
-    <label>Aantal:</label>
-    <input type="number" name="quantity" min="1" required>
+        <label>Aantal:</label>
+        <input type="number" name="quantity" min="1" required>
 
-    <br><br>
+        <br><br>
 
-    <label>Naam:</label>
-    <input type="text" name="borrower_name" required>
+        <label>Naam:</label>
+        <input type="text" name="borrower_name" required>
 
-    <br><br>
+        <br><br>
 
-    <button type="submit">Verzoek indienen</button>
+        <button type="submit">Verzoek indienen</button>
 
-</form>
+    </form>
+
+    </x-app-layout>

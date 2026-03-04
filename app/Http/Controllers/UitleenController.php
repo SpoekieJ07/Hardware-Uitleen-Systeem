@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Hardware;
 use App\Models\Uitleen;
+use Illuminate\Support\Facades\Auth;
 
 class UitleenController extends Controller
 {
@@ -26,6 +27,7 @@ class UitleenController extends Controller
             'hardware_id' => 'required|exists:hardware,id',
             'quantity' => 'required|integer|min:1',
             'borrower_name' => 'required|string|max:255',
+            'status' => 'pending',
         ]);
 
         $hardware = Hardware::findOrFail($request->hardware_id);
@@ -35,6 +37,7 @@ class UitleenController extends Controller
         }
 
         Uitleen::create([
+            'user_id' => Auth::id(),
             'hardware_id' => $request->hardware_id,
             'quantity' => $request->quantity,
             'borrower_name' => $request->borrower_name,

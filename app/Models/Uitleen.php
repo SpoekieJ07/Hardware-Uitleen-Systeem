@@ -9,6 +9,7 @@ class Uitleen extends Model
     protected $table = 'uitleen';
 
     protected $fillable = [
+        'user_id',
         'hardware_id',
         'quantity',
         'borrower_name'

@@ -1,20 +1,31 @@
-<h1>Uitleenverzoeken</h1>
+<x-app-layout>
 
-<a href="{{ route('uitleen.create') }}">Nieuw verzoek</a>
+    <h1>Mijn uitleenaanvragen</h1>
 
-<table border="1">
-<tr>
-    <th>Hardware</th>
-    <th>Aantal</th>
-    <th>Naam</th>
-</tr>
+    <table border="1" cellpadding="6">
+        <tr>
+            <th>Hardware</th>
+            <th>Aantal</th>
+            <th>Naam</th>
+            <th>Status</th>
+            <th>Aangevraagd op</th>
+        </tr>
 
-@foreach($uitleen as $item)
-<tr>
-    <td>{{ $item->hardware->name }}</td>
-    <td>{{ $item->quantity }}</td>
-    <td>{{ $item->borrower_name }}</td>
-</tr>
-@endforeach
-
-</table>
+        @foreach($uitleen as $item)
+        <tr>
+            <td>{{ $item->hardware->name ?? 'Onbekend' }}</td>
+            <td>{{ $item->quantity }}</td>
+            <td>{{ $item->borrower_name }}</td>
+            <td>
+                @switch($item->status)
+                @case('approved') Goedgekeurd @break
+                @case('rejected') Afgewezen @break
+                @case('returned') Teruggebracht @break
+                @default In behandeling
+                @endswitch
+            </td>
+            <td>{{ $item->created_at?->format('d-m-Y H:i') }}</td>
+        </tr>
+        @endforeach
+    </table>
+</x-app-layout>
