@@ -8,8 +8,15 @@ use App\Http\Controllers\AdminloanController;
 
 Route::get('/', [HardwareController::class, 'index'])->name('root');
 
+use App\Models\Uitleen;
+
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    // show every loan (admin‑style overview)
+    $loans = Uitleen::with('hardware')
+        ->latest()
+        ->get();
+
+    return view('dashboard', compact('loans'));
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/home', function () {
