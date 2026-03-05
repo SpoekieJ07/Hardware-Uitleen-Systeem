@@ -40,6 +40,7 @@ Route::middleware(['auth', 'can:manage-loans'])->group(function () {
     Route::get('/admin/pending', [AdminloanController::class, 'index'])->name('admin.pending');
     Route::post('/admin/pending/{loanRequest}/approve', [AdminloanController::class, 'approve'])->name('admin.pending.approve');
     Route::post('/admin/pending/{loanRequest}/reject', [AdminloanController::class, 'reject'])->name('admin.pending.reject');
+    Route::get('/admin/dashboard', [AdminloanController::class, 'dashboard'])->name('admin.dashboard');
 });
 
 require __DIR__ . '/auth.php';
