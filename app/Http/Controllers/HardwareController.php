@@ -15,6 +15,12 @@ class HardwareController extends Controller
         return view('hardware.index', compact('hardwares'));
     }
 
+    public function adminIndex()
+    {
+        $hardwares = Hardware::all();
+        return view('admin.index', compact('hardwares'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

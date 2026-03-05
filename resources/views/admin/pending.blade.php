@@ -1,5 +1,15 @@
 <x-app-layout>
-    <h1>Pending uitleenverzoeken</h1>
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Pending uitleenverzoeken</h1>
+        <div class="flex gap-4">
+            <a href="{{ route('dashboard') }}" class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition">
+                Terug naar Dashboard
+            </a>
+            <a href="{{ route('admin.hardware.index') }}" class="inline-flex items-center rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-green-700 transition">
+                Hardware Index
+            </a>
+        </div>
+    </div>
 
     @if(session('success'))
     <p style="color:green">{{ session('success') }}</p>

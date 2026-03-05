@@ -36,9 +36,10 @@ Route::get('/uitleen/history', [UitleenController::class, 'history'])->name('uit
 
 
 Route::middleware(['auth', 'can:manage-loans'])->group(function () {
+    Route::get('/admin/hardware', [HardwareController::class, 'adminIndex'])->name('admin.hardware.index');
     Route::get('/admin/pending', [AdminloanController::class, 'index'])->name('admin.pending');
     Route::post('/admin/pending/{loanRequest}/approve', [AdminloanController::class, 'approve'])->name('admin.pending.approve');
     Route::post('/admin/pending/{loanRequest}/reject', [AdminloanController::class, 'reject'])->name('admin.pending.reject');
-});     
+});
 
 require __DIR__ . '/auth.php';

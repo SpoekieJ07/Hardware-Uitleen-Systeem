@@ -2,14 +2,14 @@
 
     <div class="flex items-center justify-between mb-6">
         <div>
-            <h2 class="text-2xl font-bold text-gray-800">Hardware List</h2>
-            <p class="text-sm text-gray-500">Overview of all hardware items</p>
+            <h2 class="text-2xl font-bold text-gray-800">Hardware Overzicht</h2>
+            <p class="text-sm text-gray-500">Beheer al je hardware items</p>
         </div>
 
         <!-- Nieuwe hardware knop -->
         <a href="{{ route('hardware.create') }}"
             class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition">
-            + make new hardware
+            + maak nieuwe hardware
         </a>
     </div>
 
