@@ -10,14 +10,14 @@ Route::get('/', [HardwareController::class, 'index'])->name('root');
 
 use App\Models\Uitleen;
 
-Route::get('/dashboard', function () {
+Route::get('admin/dashboard', function () {
     // show every loan (admin‑style overview)
     $loans = Uitleen::with('hardware')
         ->latest()
         ->get();
 
-    return view('dashboard', compact('loans'));
-})->middleware(['auth'])->name('dashboard');
+    return view('admin/dashboard', compact('loans'));
+})->middleware(['auth'])->name('admin/dashboard');
 
 Route::get('/home', function () {
     return view('home');
@@ -36,9 +36,10 @@ Route::get('/uitleen/history', [UitleenController::class, 'history'])->name('uit
 Route::get('/uitleen/destroy/{uitleen}', [UitleenController::class, 'destroy'])->name('uitleen.destroy');
 
 Route::middleware(['auth', 'can:manage-loans'])->group(function () {
+    Route::get('/admin/hardware', [HardwareController::class, 'adminIndex'])->name('admin.hardware.index');
     Route::get('/admin/pending', [AdminloanController::class, 'index'])->name('admin.pending');
     Route::post('/admin/pending/{loanRequest}/approve', [AdminloanController::class, 'approve'])->name('admin.pending.approve');
     Route::post('/admin/pending/{loanRequest}/reject', [AdminloanController::class, 'reject'])->name('admin.pending.reject');
-});     
+});
 
 require __DIR__ . '/auth.php';

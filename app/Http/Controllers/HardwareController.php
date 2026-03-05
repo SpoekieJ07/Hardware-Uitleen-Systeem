@@ -15,6 +15,12 @@ class HardwareController extends Controller
         return view('hardware.index', compact('hardwares'));
     }
 
+    public function adminIndex()
+    {
+        $hardwares = Hardware::all();
+        return view('admin.index', compact('hardwares'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -37,9 +43,10 @@ class HardwareController extends Controller
         return redirect()->route('hardware.index')->with('success', 'Hardware created successfully.');
     }
 
-    public function show(string $id)
+    public function show(Hardware $hardware)
     {
-        //
+        // display single hardware item in the detail view
+        return view('hardware.detail', compact('hardware'));
     }
 
     public function edit(Hardware $hardware)
