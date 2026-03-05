@@ -20,11 +20,11 @@ Route::get('admin/dashboard', function () {
 })->middleware(['auth'])->name('admin/dashboard');
 
 Route::get('/home', function () {
-    return view('home');
+    return view('hardware');
 })->middleware(['auth'])->name('home');
 
 Route::resource('hardware', HardwareController::class);
-Route::get('/hardware', [HardwareController::class, 'index'])->name('hardware.index');
+Route::get('/', [HardwareController::class, 'index'])->name('root');
 Route::get('/hardware/create', [HardwareController::class, 'create'])->name('hardware.create');
 Route::post('/hardware', [HardwareController::class, 'store'])->name('hardware.store');
 
