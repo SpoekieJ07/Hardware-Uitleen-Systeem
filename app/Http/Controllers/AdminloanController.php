@@ -73,4 +73,12 @@ class AdminloanController extends Controller
 
         return back()->with('success', 'Verzoek afgewezen.');
     }
+    public function dashboard()
+    {
+        $requests = Uitleen::with('hardware')
+            ->latest()
+            ->get();
+
+        return view('admin.pending', compact('requests'));
+    }
 }
