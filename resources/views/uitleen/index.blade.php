@@ -2,6 +2,13 @@
 
     <h1>Mijn uitleenaanvragen</h1>
 
+    <div>
+        <a href="{{ route('uitleen.create') }}"
+            class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition">
+            + make new loan request
+        </a>
+    </div>
+
     <table border="1" cellpadding="6">
         <tr>
             <th>Hardware</th>

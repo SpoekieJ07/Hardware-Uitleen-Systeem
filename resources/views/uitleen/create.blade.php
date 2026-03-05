@@ -3,7 +3,7 @@
 
         <form method="POST" action="{{ route('uitleen.store') }}">
             @csrf
-
+            
             <label>Hardware item:</label>
             <select name="hardware_id" required>
                 @foreach($hardware as $item)
