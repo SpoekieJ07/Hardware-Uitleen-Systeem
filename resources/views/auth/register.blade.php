@@ -1,4 +1,4 @@
-<x-layouts.auth>
+<x-app-layout>
     <div
         class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div class="p-6">
@@ -43,4 +43,4 @@
             </div>
         </div>
     </div>
-</x-layouts.auth>
+</x-app-layout>
