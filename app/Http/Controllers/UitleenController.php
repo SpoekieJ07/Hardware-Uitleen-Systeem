@@ -24,6 +24,7 @@ class UitleenController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'user_id' => Auth::id(),
             'hardware_id' => 'required|exists:hardware,id',
             'quantity' => 'required|integer|min:1',
             'borrower_name' => 'required|string|max:255',

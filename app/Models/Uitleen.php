@@ -9,6 +9,7 @@ class Uitleen extends Model
     protected $table = 'uitleen';
 
     protected $fillable = [
+        'user_id' ,
         'hardware_id',
         'quantity',
         'borrower_name',
@@ -16,6 +17,11 @@ class Uitleen extends Model
         'start_date',
         'end_date',
     ];
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
 
     public function hardware()
     {

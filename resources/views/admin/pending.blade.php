@@ -27,7 +27,7 @@
             <td>{{ $request->borrower_name }}</td>
             <td>{{ $request->status }}</td>
             <td>
-                <form method="POST" action="{{ route('admin.uitleen.approve', $request->id) }}">
+                <form method="POST" action="{{ route('admin.pending.approve', $request->id) }}">
                     @csrf
                     <button type="submit">Goedkeuren</button>
                 </form>
