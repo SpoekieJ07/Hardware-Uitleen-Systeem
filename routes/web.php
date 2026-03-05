@@ -10,14 +10,14 @@ Route::get('/', [HardwareController::class, 'index'])->name('root');
 
 use App\Models\Uitleen;
 
-Route::get('/dashboard', function () {
+Route::get('admin/dashboard', function () {
     // show every loan (admin‑style overview)
     $loans = Uitleen::with('hardware')
         ->latest()
         ->get();
 
-    return view('dashboard', compact('loans'));
-})->middleware(['auth'])->name('dashboard');
+    return view('admin/dashboard', compact('loans'));
+})->middleware(['auth'])->name('admin/dashboard');
 
 Route::get('/home', function () {
     return view('home');

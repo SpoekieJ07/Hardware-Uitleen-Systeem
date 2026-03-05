@@ -5,6 +5,12 @@
             <h2 class="text-2xl font-bold text-gray-800">Hardware List</h2>
             <p class="text-sm text-gray-500">Overview of all hardware items</p>
         </div>
+
+        <!-- Nieuwe hardware knop -->
+        <a href="{{ route('hardware.create') }}"
+            class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition">
+            + make new hardware
+        </a>
     </div>
 
     <!-- Hardware tabel -->
@@ -37,17 +43,35 @@
                     <td class="px-6 py-4">
                         <div class="flex justify-end gap-2">
 
+                            <!-- Edit knop -->
+                            <a href="{{ route('hardware.edit', $item->id) }}"
+                                class="rounded-lg bg-yellow-500 px-3 py-2 text-xs font-semibold text-white hover:bg-yellow-600 transition">
+                                Edit
+                            </a>
+
                             <!-- Detail knop -->
                             <a href="{{ route('hardware.show', $item->id) }}"
                                 class="rounded-lg bg-blue-500 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-600 transition">
                                 Detail
                             </a>
 
-                            <!-- Uitleen knop -->
-                            <a href="{{ route ('uitleen.index')}}"
+                            <!-- Delete knop -->
+                            <form action="{{ route('hardware.destroy', $item->id) }}"
+                                method="POST"
+                                onsubmit="return confirm('are you sure you want to delete this hardware item?');">
+                                @csrf
+                                @method('DELETE')
+
+                                <a href="{{ route ('uitleen.index')}}"
                                 class="rounded-lg bg-red-500 px-3 py-2 text-xs font-semibold text-white hover:bg-red-600 transition">
                                 Uitleenen
                             </a>
+
+                                <button type="submit"
+                                    class="rounded-lg bg-red-600 px-3 py-2 text-xs font-semibold text-white hover:bg-red-700 transition">
+                                    Delete
+                                </button>
+                            </form>
 
                         </div>
                     </td>
