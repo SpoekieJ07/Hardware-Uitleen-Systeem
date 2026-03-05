@@ -20,7 +20,17 @@
             <td>{{ $item->borrower_name }}</td>
             <td>{{ $item->start_date }}</td>
             <td>{{ $item->end_date }}</td>
-            <td>{{ $item->status }}</td>
+
+            {{-- Status + reden (als rejected) --}}
+            <td>
+                {{ $item->status }}
+
+                @if($item->status === 'rejected' && $item->review_notes)
+                <br>
+                <small><strong>Reden:</strong> {{ $item->review_notes }}</small>
+                @endif
+            </td>
+
             <td>{{ $item->created_at?->format('d-m-Y H:i') }}</td>
         </tr>
         @endforeach

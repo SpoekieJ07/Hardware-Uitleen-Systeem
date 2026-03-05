@@ -27,13 +27,32 @@
             <td>{{ $request->borrower_name }}</td>
             <td>{{ $request->status }}</td>
             <td>
+
+                {{-- Goedkeuren --}}
                 <form method="POST" action="{{ route('admin.pending.approve', $request->id) }}">
                     @csrf
                     <button type="submit">Goedkeuren</button>
                 </form>
+
+                <br>
+
+                {{-- Afwijzen met reden --}}
+                <form method="POST" action="{{ route('admin.pending.reject', $request->id) }}">
+                    @csrf
+
+                    <input
+                        type="text"
+                        name="rejection_reason"
+                        placeholder="Reden van afwijzing"
+                        required>
+
+                    <button type="submit">Afwijzen</button>
+                </form>
+
             </td>
         </tr>
         @endforeach
+
     </table>
 
 </x-app-layout>

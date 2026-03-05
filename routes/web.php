@@ -33,7 +33,7 @@ Route::get('/uitleen', [UitleenController::class, 'index'])->name('uitleen.index
 Route::get('/uitleen/create', [UitleenController::class, 'create'])->name('uitleen.create');
 Route::post('/uitleen', [UitleenController::class, 'store'])->name('uitleen.store');
 Route::get('/uitleen/history', [UitleenController::class, 'history'])->name('uitleen.history');
-
+Route::get('/uitleen/destroy/{uitleen}', [UitleenController::class, 'destroy'])->name('uitleen.destroy');
 
 Route::middleware(['auth', 'can:manage-loans'])->group(function () {
     Route::get('/admin/pending', [AdminloanController::class, 'index'])->name('admin.pending');

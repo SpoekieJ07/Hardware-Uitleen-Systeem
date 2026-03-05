@@ -63,4 +63,16 @@ class UitleenController extends Controller
 
         return view('uitleen.history', compact('history'));
     }
+    public function delete(Uitleen $uitleen)
+    {
+        if ($uitleen->status === 'approved') {
+            $hardware = $uitleen->hardware;
+            $hardware->increment('total', $uitleen->quantity);
+        }
+
+        $uitleen->delete();
+
+        return redirect()->route('uitleen.index')
+            ->with('success', 'Uitleenverzoek verwijderd.');
+    }
 }
