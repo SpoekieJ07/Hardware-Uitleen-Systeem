@@ -49,6 +49,12 @@
                                 Edit
                             </a>
 
+                            <!-- Detail knop -->
+                            <a href="{{ route('hardware.show', $item->id) }}"
+                                class="rounded-lg bg-blue-500 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-600 transition">
+                                Detail
+                            </a>
+
                             <!-- Delete knop -->
                             <form action="{{ route('hardware.destroy', $item->id) }}"
                                 method="POST"

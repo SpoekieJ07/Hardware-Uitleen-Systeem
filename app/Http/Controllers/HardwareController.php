@@ -37,9 +37,10 @@ class HardwareController extends Controller
         return redirect()->route('hardware.index')->with('success', 'Hardware created successfully.');
     }
 
-    public function show(string $id)
+    public function show(Hardware $hardware)
     {
-        //
+        // display single hardware item in the detail view
+        return view('hardware.detail', compact('hardware'));
     }
 
     public function edit(Hardware $hardware)
