@@ -29,9 +29,6 @@
                 <a href="/hardware" class="text-gray-600 hover:text-blue-600 transition">
                     Home
                 </a>
-                <a href="/admin/dashboard" class="text-gray-600 hover:text-blue-600 transition">
-                    Dashboard
-                </a>
                 <a href="/contact" class="text-gray-600 hover:text-blue-600 transition">
                     Contact
                 </a>
