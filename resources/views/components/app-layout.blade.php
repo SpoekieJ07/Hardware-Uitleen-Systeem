@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 min-h-screen flex flex-col">
 
     <!-- Navigatie -->
@@ -33,8 +35,21 @@
                 <a href="/contact" class="text-gray-600 hover:text-blue-600 transition">
                     Contact
                 </a>
+                <div>
+                    @if (Route::has('login'))
+                    @auth
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
+                    @else
+                    <a href="{{ route('login') }}">Login</a>
+                    @endauth
+                    @endif
+                </div>
             </nav>
         </div>
+
     </header>
 
     <!-- Hoofdcontent -->
@@ -50,4 +65,5 @@
     </footer>
 
 </body>
+
 </html>
