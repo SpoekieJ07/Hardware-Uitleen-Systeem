@@ -21,7 +21,7 @@
                 <a href="/uitleen/history" class="text-gray-600 hover:text-blue-600 transition">
                     Uitleenhistorie
                 </a>
-                <a href="/admin/loan-requests" class="text-gray-600 hover:text-blue-600 transition">
+                <a href="/admin/pending" class="text-gray-600 hover:text-blue-600 transition">
                     Admin
                 </a>
                 <a href="/hardware" class="text-gray-600 hover:text-blue-600 transition">
