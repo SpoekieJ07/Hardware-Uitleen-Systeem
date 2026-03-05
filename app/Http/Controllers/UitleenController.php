@@ -28,6 +28,8 @@ class UitleenController extends Controller
             'quantity' => 'required|integer|min:1',
             'borrower_name' => 'required|string|max:255',
             'status' => 'pending',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
         ]);
 
         $hardware = Hardware::findOrFail($request->hardware_id);
@@ -41,11 +43,23 @@ class UitleenController extends Controller
             'hardware_id' => $request->hardware_id,
             'quantity' => $request->quantity,
             'borrower_name' => $request->borrower_name,
+            'status' => 'pending',
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
         ]);
 
         $hardware->decrement('total', $request->quantity);
 
         return redirect()->route('uitleen.index')
             ->with('success', 'Uitleenverzoek ingediend!');
+    }
+    public function history()
+    {
+
+        $history = Uitleen::with('hardware')
+            ->orderByDesc('created_at')
+            ->get();
+
+        return view('uitleen.history', compact('history'));
     }
 }
