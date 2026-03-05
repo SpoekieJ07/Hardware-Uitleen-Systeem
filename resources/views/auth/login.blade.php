@@ -1,4 +1,4 @@
-<x-layouts.auth :title="__('Login')">
+<x-app-layout>
     <!-- Login Card -->
     <div
         class="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
@@ -44,4 +44,4 @@
             @endif
         </div>
     </div>
-</x-layouts.auth>
+</x-app-layout>
