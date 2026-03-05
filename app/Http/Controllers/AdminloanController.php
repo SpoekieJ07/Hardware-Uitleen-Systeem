@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\LoanRequest;
+use App\Models\Uitleen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -12,14 +12,14 @@ class AdminloanController extends Controller
 {
     public function index()
     {
-        $requests = LoanRequest::with(['hardware', 'user'])
+        $requests = Uitleen::with(['hardware', 'user'])
             ->latest()
             ->get();
 
         return view('admin.pending', compact('requests'));
     }
 
-    public function approve(LoanRequest $loanRequest)
+    public function approve(Uitleen $loanRequest)
     {
         try {
             DB::transaction(function () use ($loanRequest) {
@@ -53,7 +53,7 @@ class AdminloanController extends Controller
         return back()->with('success', 'Verzoek goedgekeurd.');
     }
 
-    public function reject(Request $request, LoanRequest $loanRequest)
+    public function reject(Request $request, Uitleen $loanRequest)
     {
         $data = $request->validate([
             'review_notes' => ['nullable', 'string', 'max:2000'],
