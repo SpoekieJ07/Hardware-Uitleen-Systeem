@@ -25,10 +25,8 @@ class RegistrationController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['required', 'string', 'in:user,admin'],
         ]);
-
-        // Ensure default role for newly registered users
-        $validated['role'] = 'user';
 
         $validated['password'] = Hash::make($validated['password']);
 

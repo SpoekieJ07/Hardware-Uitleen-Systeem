@@ -29,6 +29,15 @@
                         placeholder="••••••••" />
                 </div>
 
+                <!-- Role Select -->
+                <div>
+                    <label for="role" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Role</label>
+                    <select name="role" id="role" class="mt-1 w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+
                 <!-- Register Button -->
                 <x-button type="primary" class="w-full">{{ __('Create Account') }}</x-button>
             </form>
