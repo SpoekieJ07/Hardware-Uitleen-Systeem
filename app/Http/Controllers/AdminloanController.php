@@ -16,7 +16,7 @@ class AdminloanController extends Controller
             ->latest()
             ->get();
 
-        return view('admin.loan_requests.index', compact('requests'));
+        return view('admin.pending', compact('requests'));
     }
 
     public function approve(LoanRequest $loanRequest)
