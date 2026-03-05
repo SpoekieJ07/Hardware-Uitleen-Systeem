@@ -11,9 +11,8 @@ class HardwareController extends Controller
 {
     public function index()
     {
-        return view('hardware.index', [
-            'hardwares' => Hardware::all()
-        ]);
+        $hardwares = Hardware::all();
+        return view('hardware.index', compact('hardwares'));
     }
 
     /**
@@ -35,7 +34,7 @@ class HardwareController extends Controller
 
         Hardware::create($validated);
 
-        return redirect()->route('hardware.index')->with('success', 'Hardware created successfully.'); 
+        return redirect()->route('hardware.index')->with('success', 'Hardware created successfully.');
     }
 
     public function show(string $id)
@@ -45,10 +44,10 @@ class HardwareController extends Controller
 
     public function edit(Hardware $hardware)
     {
-            return view('hardware.edit', compact('hardware'));
+        return view('hardware.edit', compact('hardware'));
     }
 
-    public function update(Request $request, Hardware $hardware  )
+    public function update(Request $request, Hardware $hardware)
     {
         $validated = $request->validate([
             'name' => 'required',
@@ -66,6 +65,4 @@ class HardwareController extends Controller
         $hardware->delete();
         return redirect()->route('hardware.index')->with('success', 'hardware deleted!');
     }
-
-    
 }

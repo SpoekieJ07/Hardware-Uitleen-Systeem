@@ -6,9 +6,7 @@ use App\Http\Controllers\UitleenController;
 use App\Http\Controllers\LoanRequestController;
 use App\Http\Controllers\AdminUitleenController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HardwareController::class, 'index'])->name('root');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

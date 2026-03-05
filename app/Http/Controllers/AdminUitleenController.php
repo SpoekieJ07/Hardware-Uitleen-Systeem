@@ -14,7 +14,7 @@ class AdminUitleenController extends Controller
             ->orderBy('created_at', 'asc')
             ->get();
 
-        return view('admin.uitleen.pending', compact('requests'));
+        return view('admin.pending', compact('requests'));
     }
 
     public function approve(Uitleen $uitleen)
@@ -40,7 +40,7 @@ class AdminUitleenController extends Controller
             ]);
         });
 
-        return redirect()->route('admin.uitleen.pending')
+        return redirect()->route('admin.pending')
             ->with('success', 'Uitleenverzoek goedgekeurd.');
     }
 }
