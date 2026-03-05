@@ -15,8 +15,13 @@
             {{ session('error') }}
         </div>
         @endif
-
+        
         <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+            <div>
+                <button class="rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-700">
+                    Nieuwe Aanvraag
+                </button>
+            </div>
             <table class="min-w-full text-sm">
                 <thead class="border-b bg-gray-50 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">
                     <tr>

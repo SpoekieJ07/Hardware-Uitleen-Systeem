@@ -18,6 +18,9 @@
             </h1>
 
             <nav class="space-x-6">
+                <a href="/uitleen/history" class="text-gray-600 hover:text-blue-600 transition">
+                    Uitleenhistorie
+                </a>
                 <a href="/admin/loan-requests" class="text-gray-600 hover:text-blue-600 transition">
                     Admin
                 </a>
