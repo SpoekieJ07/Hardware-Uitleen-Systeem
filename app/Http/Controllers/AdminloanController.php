@@ -75,10 +75,10 @@ class AdminloanController extends Controller
     }
     public function dashboard()
     {
-        $requests = Uitleen::with('hardware')
+        $loans = Uitleen::with('hardware')
             ->latest()
             ->get();
 
-        return view('admin.pending', compact('requests'));
+        return view('admin.dashboard', compact('loans'));
     }
 }

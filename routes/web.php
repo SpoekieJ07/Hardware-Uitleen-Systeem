@@ -22,8 +22,13 @@ Route::get('/home', function () {
     return view('hardware');
 })->middleware(['auth'])->name('home');
 
-Route::resource('hardware', HardwareController::class); // This will create all the necessary routes for CRUD operations on hardware, including index, create, store, show, edit, update, and destroy.
+// Route::resource('hardware', HardwareController::class); // This will create all the necessary routes for CRUD operations on hardware, including index, create, store, show, edit, update, and destroy.
 Route::get('/', [HardwareController::class, 'index'])->name('root');
+Route::get('/hardware', [HardwareController::class, 'index'])->name('hardware.index');
+Route::get('/hardware/{hardware}', [HardwareController::class, 'show'])->name('hardware.show');
+Route::get('/hardware/{hardware}/edit', [HardwareController::class, 'edit'])->name('hardware.edit');
+Route::put('/hardware/{hardware}', [HardwareController::class, 'update'])->name('hardware.update');
+Route::delete('/hardware/{hardware}', [HardwareController::class, 'destroy'])->name('hardware.destroy');
 Route::get('/hardware/create', [HardwareController::class, 'create'])->name('hardware.create');
 Route::post('/hardware', [HardwareController::class, 'store'])->name('hardware.store');
 
