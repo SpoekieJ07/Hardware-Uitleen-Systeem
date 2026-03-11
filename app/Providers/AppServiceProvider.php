@@ -23,5 +23,10 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('manage-loans', function ($user) {
             return $user->role === 'admin';
         });
+
+
+        Gate::define('manage-hardware', function ($user) {
+            return $user->role === 'admin';
+        });
     }
 }

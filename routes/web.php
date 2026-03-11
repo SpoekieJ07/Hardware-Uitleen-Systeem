@@ -26,18 +26,22 @@ Route::get('/home', function () {
 Route::get('/', [HardwareController::class, 'index'])->name('root');
 Route::get('/hardware', [HardwareController::class, 'index'])->name('hardware.index');
 Route::get('/hardware/{hardware}', [HardwareController::class, 'show'])->name('hardware.show');
+Route::get('/uitleen', [UitleenController::class, 'index'])->name('uitleen.index');
+
+Route::middleware(['auth', 'can:manage-hardware'])->group(function () {
 Route::get('/hardware/{hardware}/edit', [HardwareController::class, 'edit'])->name('hardware.edit');
 Route::put('/hardware/{hardware}', [HardwareController::class, 'update'])->name('hardware.update');
 Route::delete('/hardware/{hardware}', [HardwareController::class, 'destroy'])->name('hardware.destroy');
 Route::get('/hardware/create', [HardwareController::class, 'create'])->name('hardware.create');
 Route::post('/hardware', [HardwareController::class, 'store'])->name('hardware.store');
+});
 
-
-Route::get('/uitleen', [UitleenController::class, 'index'])->name('uitleen.index');
+Route::middleware(['auth', 'can:manage-loans'])->group(function () {
 Route::get('/uitleen/create', [UitleenController::class, 'create'])->name('uitleen.create');
 Route::post('/uitleen', [UitleenController::class, 'store'])->name('uitleen.store');
 Route::get('/uitleen/history', [UitleenController::class, 'history'])->name('uitleen.history');
 Route::delete('/uitleen/{uitleen}', [UitleenController::class, 'destroy'])->name('uitleen.destroy');
+});
 
 Route::middleware(['auth', 'can:manage-loans'])->group(function () { // Middleware to ensure only authenticated users with the 'manage-loans' (admin role) permission can access these routes
     Route::get('/admin/hardware', [HardwareController::class, 'adminIndex'])->name('admin.hardware.index');
