@@ -51,6 +51,20 @@
                         class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 </div>
                 <div>
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-1">
+                        Status
+                    </label>
+                    <select name="status" id="status"
+                        class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="available" {{ $hardware->status === 'available' ? 'selected' : '' }}>
+                            Beschikbaar
+                        </option>
+                        <option value="defective" {{ $hardware->status === 'defective' ? 'selected' : '' }}>
+                            Defect
+                        </option>
+                    </select>
+                </div>
+                <div>
                     <label for="loan_duration_days" class="block text-sm font-medium text-gray-700 mb-1">
                         Uitleentermijn (dagen)
                     </label>

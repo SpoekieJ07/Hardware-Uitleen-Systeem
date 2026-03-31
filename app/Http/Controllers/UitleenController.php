@@ -17,7 +17,7 @@ class UitleenController extends Controller
 
     public function create()
     {
-        $hardware = Hardware::all();
+        $hardware = Hardware::where('status', 'available')->get();
         return view('uitleen.create', compact('hardware'));
     }
 
@@ -31,6 +31,10 @@ class UitleenController extends Controller
         ]);
 
         $hardware = Hardware::findOrFail($request->hardware_id);
+
+        if ($hardware->status === 'defective') {
+            return back()->withErrors('Dit item is defect en kan niet worden uitgeleend.');
+        }
 
         if ($request->quantity > $hardware->total) {
             return back()->withErrors('Niet genoeg voorraad beschikbaar.');

@@ -37,6 +37,7 @@ class HardwareController extends Controller
             'total' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
             'loan_duration_days' => 'required|integer|min:1|max:365',
+            'status' => 'required|string|in:available,defective',
         ]);
 
         Hardware::create($validated);
@@ -62,8 +63,8 @@ class HardwareController extends Controller
             'total' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
             'loan_duration_days' => 'required|integer|min:1|max:365',
+            'status' => 'required|string|in:available,defective',
         ]);
-
         $hardware->update($validated);
 
         return redirect()->route('hardware.index')->with('success', 'hardware updated successfully.');

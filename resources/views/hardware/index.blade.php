@@ -16,6 +16,7 @@
                     <th class="px-6 py-3 font-semibold">Total</th>
                     <th class="px-6 py-3 font-semibold">Price</th>
                     <th class="px-6 py-3 font-semibold text-right">Actions</th>
+                    <th class="px-6 py-3 font-semibold">Status</th>
                 </tr>
             </thead>
 
@@ -32,6 +33,13 @@
 
                     <td class="px-6 py-4 text-gray-700">
                         € {{ $item->price }}
+                    </td>
+                    <td class="px-6 py-4 text-gray-700">
+                        @if($item->status === 'defective')
+                        <span class="text-red-600 font-semibold">Defect</span>
+                        @else
+                        <span class="text-green-600 font-semibold">Beschikbaar</span>
+                        @endif
                     </td>
 
                     <td class="px-6 py-4">
