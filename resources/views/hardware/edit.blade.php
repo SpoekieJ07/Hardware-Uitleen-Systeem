@@ -50,6 +50,17 @@
                         value="{{ $hardware->price }}"
                         class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 </div>
+                <div>
+                    <label for="loan_duration_days" class="block text-sm font-medium text-gray-700 mb-1">
+                        Uitleentermijn (dagen)
+                    </label>
+                    <input type="number"
+                        name="loan_duration_days"
+                        id="loan_duration_days"
+                        min="1"
+                        value="{{ $hardware->loan_duration_days }}"
+                        class="w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
 
                 <!-- Buttons -->
                 <div class="flex justify-between items-center pt-4">

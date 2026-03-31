@@ -24,13 +24,10 @@ class UitleenController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => Auth::id(),
             'hardware_id' => 'required|exists:hardware,id',
             'quantity' => 'required|integer|min:1',
             'borrower_name' => 'required|string|max:255',
-            'status' => 'pending',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
         ]);
 
         $hardware = Hardware::findOrFail($request->hardware_id);
@@ -39,6 +36,9 @@ class UitleenController extends Controller
             return back()->withErrors('Niet genoeg voorraad beschikbaar.');
         }
 
+        $startDate = \Carbon\Carbon::parse($request->start_date);
+        $endDate = $startDate->copy()->addDays($hardware->loan_duration_days);
+
         Uitleen::create([
             'user_id' => Auth::id(),
             'hardware_id' => $request->hardware_id,
@@ -46,7 +46,7 @@ class UitleenController extends Controller
             'borrower_name' => $request->borrower_name,
             'status' => 'pending',
             'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
+            'end_date' => $endDate->toDateString(),
         ]);
 
         $hardware->decrement('total', $request->quantity);

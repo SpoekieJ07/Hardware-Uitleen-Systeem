@@ -33,9 +33,10 @@ class HardwareController extends Controller
     {
         //dd($request->all());
         $validated = $request->validate([
-            'name' => 'required',
-            'total' => 'required|integer',
-            'price' => 'required|numeric',
+            'name' => 'required|string|max:255',
+            'total' => 'required|integer|min:0',
+            'price' => 'required|numeric|min:0',
+            'loan_duration_days' => 'required|integer|min:1|max:365',
         ]);
 
         Hardware::create($validated);
@@ -57,9 +58,10 @@ class HardwareController extends Controller
     public function update(Request $request, Hardware $hardware)
     {
         $validated = $request->validate([
-            'name' => 'required',
-            'total' => 'required|integer',
-            'price' => 'required|numeric',
+            'name' => 'required|string|max:255',
+            'total' => 'required|integer|min:0',
+            'price' => 'required|numeric|min:0',
+            'loan_duration_days' => 'required|integer|min:1|max:365',
         ]);
 
         $hardware->update($validated);

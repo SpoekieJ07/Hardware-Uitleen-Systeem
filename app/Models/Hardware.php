@@ -7,8 +7,7 @@ use App\Models\LoanRequest;
 
 class Hardware extends Model
 {
-    protected $fillable = ['name', 'total', 'price'];
-
+    protected $fillable = ['name', 'total', 'price', 'loan_duration_days'];
 
     public function loanRequests()
     {
