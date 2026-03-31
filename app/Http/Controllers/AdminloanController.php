@@ -7,6 +7,9 @@ use App\Models\Uitleen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\LoanApprovedMail;
+use App\Mail\LoanRejectedMail;
+use Illuminate\Support\Facades\Mail;
 
 
 class AdminloanController extends Controller
@@ -30,9 +33,8 @@ class AdminloanController extends Controller
                     return;
                 }
 
-                $loanRequest->load('hardware');
+                $loanRequest->load(['hardware', 'user']);
 
-                // lock hardware row (voorkomt race conditions)
                 $hardware = $loanRequest->hardware()->lockForUpdate()->first();
 
                 if ((int)($hardware->total ?? 0) < (int)$loanRequest->quantity) {
@@ -47,11 +49,17 @@ class AdminloanController extends Controller
                     'reviewed_at' => now(),
                 ]);
             });
+
+            $loanRequest->load(['hardware', 'user']);
+
+            if ($loanRequest->user && $loanRequest->user->email) {
+                Mail::to($loanRequest->user->email)->send(new LoanApprovedMail($loanRequest));
+            }
         } catch (\Throwable $e) {
             return back()->with('error', $e->getMessage());
         }
 
-        return back()->with('success', 'Verzoek goedgekeurd.');
+        return back()->with('success', 'Verzoek goedgekeurd en e-mail verstuurd.');
     }
 
     public function reject(Request $request, Uitleen $loanRequest)
@@ -71,14 +79,12 @@ class AdminloanController extends Controller
             'review_notes' => $data['review_notes'] ?? null,
         ]);
 
-        return back()->with('success', 'Verzoek afgewezen.');
-    }
-    public function dashboard()
-    {
-        $loans = Uitleen::with('hardware')
-            ->latest()
-            ->get();
+        $loanRequest->load(['hardware', 'user']);
 
-        return view('admin.dashboard', compact('loans'));
+        if ($loanRequest->user && $loanRequest->user->email) {
+            Mail::to($loanRequest->user->email)->send(new LoanRejectedMail($loanRequest));
+        }
+
+        return back()->with('success', 'Verzoek afgewezen en e-mail verstuurd.');
     }
 }

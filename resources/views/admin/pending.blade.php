@@ -52,7 +52,7 @@
 
                     <input
                         type="text"
-                        name="rejection_reason"
+                        name="review_notes"
                         placeholder="Reden van afwijzing"
                         required>
 
