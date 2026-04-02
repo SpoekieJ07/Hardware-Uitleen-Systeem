@@ -9,20 +9,27 @@ use Illuminate\Support\Facades\Auth;
 use App\Mail\LoanApprovedMail;
 use App\Mail\LoanRejectedMail;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Hardware;
 use Carbon\Carbon;
 
 class AdminloanController extends Controller
 {
-    public function index()
+    public function adminIndex(Request $request)
     {
-        $requests = Uitleen::with(['hardware', 'user'])
-            ->where('status', 'pending')
-            ->latest()
-            ->get();
+        $query = Hardware::query();
 
-        return view('admin.pending', compact('requests'));
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $hardware = $query->latest()->get();
+
+        return view('admin.index', compact('hardware'));
     }
-
     public function dashboard()
     {
         $loans = Uitleen::with(['hardware', 'user'])

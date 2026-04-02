@@ -1,5 +1,36 @@
 <x-app-layout>
+    <form method="GET" action="{{ route('hardware.index') }}" class="mb-6 flex gap-4">
+        <input
+            type="text"
+            name="search"
+            value="{{ request('search') }}"
+            placeholder="Zoek op naam..."
+            class="rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
 
+        <select
+            name="status"
+            class="rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            <option value="">Alle statussen</option>
+            <option value="available" {{ request('status') === 'available' ? 'selected' : '' }}>
+                Beschikbaar
+            </option>
+            <option value="defective" {{ request('status') === 'defective' ? 'selected' : '' }}>
+                Defect
+            </option>
+        </select>
+
+        <button
+            type="submit"
+            class="rounded-lg bg-blue-600 px-4 py-2 text-white font-semibold hover:bg-blue-700 transition">
+            Filter
+        </button>
+
+        <a
+            href="{{ route('hardware.index') }}"
+            class="rounded-lg bg-gray-500 px-4 py-2 text-white font-semibold hover:bg-gray-600 transition">
+            Reset
+        </a>
+    </form>
     <div class="flex items-center justify-between mb-6">
         <div>
             <h2 class="text-2xl font-bold text-gray-800">Hardware List</h2>

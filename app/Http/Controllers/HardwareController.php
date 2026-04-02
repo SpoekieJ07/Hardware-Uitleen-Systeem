@@ -9,16 +9,21 @@ use App\Http\Controllers\Controller;
 
 class HardwareController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $hardwares = Hardware::all();
-        return view('hardware.index', compact('hardwares'));
-    }
+        $query = Hardware::query();
 
-    public function adminIndex()
-    {
-        $hardwares = Hardware::all();
-        return view('admin.index', compact('hardwares'));
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $hardware = $query->latest()->get();
+
+        return view('hardware.index', compact('hardware'));
     }
 
     /**

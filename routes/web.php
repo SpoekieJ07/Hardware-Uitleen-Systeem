@@ -29,18 +29,18 @@ Route::get('/hardware/{hardware}', [HardwareController::class, 'show'])->name('h
 Route::get('/uitleen', [UitleenController::class, 'index'])->name('uitleen.index');
 
 Route::middleware(['auth', 'can:manage-hardware'])->group(function () {
-Route::get('/hardware/{hardware}/edit', [HardwareController::class, 'edit'])->name('hardware.edit');
-Route::put('/hardware/{hardware}', [HardwareController::class, 'update'])->name('hardware.update');
-Route::delete('/hardware/{hardware}', [HardwareController::class, 'destroy'])->name('hardware.destroy');
-Route::get('/hardware/create', [HardwareController::class, 'create'])->name('hardware.create');
-Route::post('/hardware', [HardwareController::class, 'store'])->name('hardware.store');
+    Route::get('/hardware/{hardware}/edit', [HardwareController::class, 'edit'])->name('hardware.edit');
+    Route::put('/hardware/{hardware}', [HardwareController::class, 'update'])->name('hardware.update');
+    Route::delete('/hardware/{hardware}', [HardwareController::class, 'destroy'])->name('hardware.destroy');
+    Route::get('/hardware/create', [HardwareController::class, 'create'])->name('hardware.create');
+    Route::post('/hardware', [HardwareController::class, 'store'])->name('hardware.store');
 });
 
 Route::middleware(['auth'])->group(function () {
-Route::get('/uitleen/create', [UitleenController::class, 'create'])->name('uitleen.create');
-Route::post('/uitleen', [UitleenController::class, 'store'])->name('uitleen.store');
-Route::get('/uitleen/history', [UitleenController::class, 'history'])->name('uitleen.history');
-Route::delete('/uitleen/{uitleen}', [UitleenController::class, 'destroy'])->name('uitleen.destroy');
+    Route::get('/uitleen/create', [UitleenController::class, 'create'])->name('uitleen.create');
+    Route::post('/uitleen', [UitleenController::class, 'store'])->name('uitleen.store');
+    Route::get('/uitleen/history', [UitleenController::class, 'history'])->name('uitleen.history');
+    Route::delete('/uitleen/{uitleen}', [UitleenController::class, 'destroy'])->name('uitleen.destroy');
 });
 
 Route::middleware(['auth', 'can:manage-loans'])->group(function () { // Middleware to ensure only authenticated users with the 'manage-loans' (admin role) permission can access these routes
@@ -49,6 +49,7 @@ Route::middleware(['auth', 'can:manage-loans'])->group(function () { // Middlewa
     Route::post('/admin/pending/{loanRequest}/approve', [AdminloanController::class, 'approve'])->name('admin.pending.approve');
     Route::post('/admin/pending/{loanRequest}/reject', [AdminloanController::class, 'reject'])->name('admin.pending.reject');
     Route::get('/admin/dashboard', [AdminloanController::class, 'dashboard'])->name('admin.dashboard');
-});
 
+    Route::get('/admin/overdue', [AdminloanController::class, 'overdue'])->name('admin.overdue');
+});
 require __DIR__ . '/auth.php';
