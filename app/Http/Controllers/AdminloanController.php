@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Uitleen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,17 +9,42 @@ use Illuminate\Support\Facades\Auth;
 use App\Mail\LoanApprovedMail;
 use App\Mail\LoanRejectedMail;
 use Illuminate\Support\Facades\Mail;
-
+use Carbon\Carbon;
 
 class AdminloanController extends Controller
 {
     public function index()
     {
         $requests = Uitleen::with(['hardware', 'user'])
+            ->where('status', 'pending')
             ->latest()
             ->get();
 
         return view('admin.pending', compact('requests'));
+    }
+
+    public function dashboard()
+    {
+        $loans = Uitleen::with(['hardware', 'user'])
+            ->latest()
+            ->get();
+
+        $overdueCount = Uitleen::where('status', 'approved')
+            ->whereDate('end_date', '<', Carbon::today())
+            ->count();
+
+        return view('admin.dashboard', compact('loans', 'overdueCount'));
+    }
+
+    public function overdue()
+    {
+        $overdueLoans = Uitleen::with(['hardware', 'user'])
+            ->where('status', 'approved')
+            ->whereDate('end_date', '<', Carbon::today())
+            ->orderBy('end_date', 'asc')
+            ->get();
+
+        return view('admin.overdue', compact('overdueLoans'));
     }
 
     public function approve(Uitleen $loanRequest)

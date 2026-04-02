@@ -36,7 +36,7 @@ Route::get('/hardware/create', [HardwareController::class, 'create'])->name('har
 Route::post('/hardware', [HardwareController::class, 'store'])->name('hardware.store');
 });
 
-Route::middleware(['auth', 'can:manage-loans'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 Route::get('/uitleen/create', [UitleenController::class, 'create'])->name('uitleen.create');
 Route::post('/uitleen', [UitleenController::class, 'store'])->name('uitleen.store');
 Route::get('/uitleen/history', [UitleenController::class, 'history'])->name('uitleen.history');
