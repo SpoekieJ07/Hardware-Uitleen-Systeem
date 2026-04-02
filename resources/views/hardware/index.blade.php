@@ -52,7 +52,7 @@
             </thead>
 
             <tbody class="divide-y divide-gray-200 text-sm">
-                @forelse ($hardwares as $item)
+                @forelse ($hardware as $item)
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 font-medium text-gray-800">
                         {{ $item->name }}
