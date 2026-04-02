@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Hardware;
 use App\Models\Uitleen;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UitleenController extends Controller
 {
     public function index()
     {
-        $uitleen = Uitleen::with('hardware')->latest()->get();
+        $uitleen = Uitleen::with('hardware')
+            ->where('user_id', Auth::id())
+            ->latest()
+            ->get();
+
         return view('uitleen.index', compact('uitleen'));
     }
 
@@ -36,11 +41,7 @@ class UitleenController extends Controller
             return back()->withErrors('Dit item is defect en kan niet worden uitgeleend.');
         }
 
-        if ($request->quantity > $hardware->total) {
-            return back()->withErrors('Niet genoeg voorraad beschikbaar.');
-        }
-
-        $startDate = \Carbon\Carbon::parse($request->start_date);
+        $startDate = Carbon::parse($request->start_date);
         $endDate = $startDate->copy()->addDays($hardware->loan_duration_days);
 
         Uitleen::create([
@@ -49,26 +50,35 @@ class UitleenController extends Controller
             'quantity' => $request->quantity,
             'borrower_name' => $request->borrower_name,
             'status' => 'pending',
-            'start_date' => $request->start_date,
+            'start_date' => $startDate->toDateString(),
             'end_date' => $endDate->toDateString(),
         ]);
-
-        $hardware->decrement('total', $request->quantity);
 
         return redirect()->route('uitleen.index')
             ->with('success', 'Uitleenverzoek ingediend!');
     }
+
     public function history()
     {
-
         $history = Uitleen::with('hardware')
+            ->where('user_id', Auth::id())
             ->orderByDesc('created_at')
             ->get();
 
         return view('uitleen.history', compact('history'));
     }
+
     public function destroy(Uitleen $uitleen)
     {
+        if ($uitleen->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        if ($uitleen->status !== 'pending') {
+            return redirect()->route('uitleen.index')
+                ->with('error', 'Alleen pending verzoeken kunnen verwijderd worden.');
+        }
+
         $uitleen->delete();
 
         return redirect()->route('uitleen.index')
