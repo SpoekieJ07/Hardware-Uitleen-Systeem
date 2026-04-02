@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Models\Hardware;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class HardwareController extends Controller
 {
@@ -21,14 +19,33 @@ class HardwareController extends Controller
             $query->where('status', $request->status);
         }
 
-        $hardware = $query->latest()->get();
+        $hardwares = $query->latest()->get();
 
-        return view('hardware.index', compact('hardware'));
+        return view('hardware.index', compact('hardwares'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function adminIndex(Request $request)
+    {
+        $query = Hardware::query();
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $hardwares = $query->latest()->get();
+
+        return view('admin.index', compact('hardwares'));
+    }
+
+    public function show(Hardware $hardware)
+    {
+        return view('hardware.show', compact('hardware'));
+    }
+
     public function create()
     {
         return view('hardware.create');
@@ -36,24 +53,18 @@ class HardwareController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->all());
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'total' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
+            'status' => 'required|in:available,defective',
             'loan_duration_days' => 'required|integer|min:1|max:365',
-            'status' => 'required|string|in:available,defective',
         ]);
 
         Hardware::create($validated);
 
-        return redirect()->route('hardware.index')->with('success', 'Hardware created successfully.');
-    }
-
-    public function show(Hardware $hardware)
-    {
-        // display single hardware item in the detail view
-        return view('hardware.detail', compact('hardware'));
+        return redirect()->route('admin.hardware.index')
+            ->with('success', 'Hardware item succesvol toegevoegd.');
     }
 
     public function edit(Hardware $hardware)
@@ -67,17 +78,21 @@ class HardwareController extends Controller
             'name' => 'required|string|max:255',
             'total' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
+            'status' => 'required|in:available,defective',
             'loan_duration_days' => 'required|integer|min:1|max:365',
-            'status' => 'required|string|in:available,defective',
         ]);
+
         $hardware->update($validated);
 
-        return redirect()->route('hardware.index')->with('success', 'hardware updated successfully.');
+        return redirect()->route('admin.hardware.index')
+            ->with('success', 'Hardware item succesvol bijgewerkt.');
     }
 
     public function destroy(Hardware $hardware)
     {
         $hardware->delete();
-        return redirect()->route('hardware.index')->with('success', 'hardware deleted!');
+
+        return redirect()->route('admin.hardware.index')
+            ->with('success', 'Hardware item verwijderd.');
     }
 }

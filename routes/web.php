@@ -11,7 +11,7 @@ Route::get('/hardware/{hardware}', [HardwareController::class, 'show'])->name('h
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', function () {
-        return view('hardware');
+        return redirect()->route('hardware.index');
     })->name('home');
 
     Route::get('/uitleen', [UitleenController::class, 'index'])->name('uitleen.index');
@@ -37,7 +37,6 @@ Route::middleware(['auth', 'can:manage-loans'])->group(function () {
 
     Route::get('/admin/dashboard', [AdminloanController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/overdue', [AdminloanController::class, 'overdue'])->name('admin.overdue');
-
     Route::get('/admin/calendar', [AdminloanController::class, 'calendar'])->name('admin.calendar');
     Route::get('/admin/report', [AdminloanController::class, 'report'])->name('admin.report');
     Route::get('/admin/export/history', [AdminloanController::class, 'exportHistoryCsv'])->name('admin.export.history');

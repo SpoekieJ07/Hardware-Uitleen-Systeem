@@ -3,14 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\LoanRequest;
 
 class Hardware extends Model
 {
-    protected $fillable = ['name', 'total', 'price', 'loan_duration_days', 'status'];
+    protected $fillable = [
+        'name',
+        'total',
+        'price',
+        'status',
+        'loan_duration_days',
+    ];
 
-    public function loanRequests()
+    public function uitleningen()
     {
-        return $this->hasMany(LoanRequest::class);
+        return $this->hasMany(Uitleen::class, 'hardware_id');
     }
 }

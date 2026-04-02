@@ -23,6 +23,7 @@ class UitleenController extends Controller
     public function create()
     {
         $hardware = Hardware::where('status', 'available')->get();
+
         return view('uitleen.create', compact('hardware'));
     }
 
@@ -32,13 +33,21 @@ class UitleenController extends Controller
             'hardware_id' => 'required|exists:hardware,id',
             'quantity' => 'required|integer|min:1',
             'borrower_name' => 'required|string|max:255',
-            'start_date' => 'required|date',
+            'start_date' => 'required|date|after_or_equal:today',
         ]);
 
         $hardware = Hardware::findOrFail($request->hardware_id);
 
         if ($hardware->status === 'defective') {
-            return back()->withErrors('Dit item is defect en kan niet worden uitgeleend.');
+            return back()
+                ->withErrors(['hardware_id' => 'Dit item is defect en kan niet worden uitgeleend.'])
+                ->withInput();
+        }
+
+        if ($request->quantity > $hardware->total) {
+            return back()
+                ->withErrors(['quantity' => 'Niet genoeg voorraad beschikbaar.'])
+                ->withInput();
         }
 
         $startDate = Carbon::parse($request->start_date);
@@ -76,12 +85,14 @@ class UitleenController extends Controller
 
         if ($uitleen->status !== 'pending') {
             return redirect()->route('uitleen.index')
-                ->with('error', 'Alleen pending verzoeken kunnen verwijderd worden.');
+                ->with('error', 'Alleen pending verzoeken kunnen geannuleerd worden.');
         }
 
-        $uitleen->delete();
+        $uitleen->update([
+            'status' => 'cancelled',
+        ]);
 
         return redirect()->route('uitleen.index')
-            ->with('success', 'Uitleenverzoek verwijderd.');
+            ->with('success', 'Uitleenverzoek geannuleerd.');
     }
 }

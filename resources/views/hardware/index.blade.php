@@ -1,5 +1,5 @@
 <x-app-layout>
-    <form method="GET" action="{{ route('hardware.index') }}" class="mb-6 flex gap-4">
+    <form method="GET" action="{{ route('hardware.index') }}" class="mb-6 flex flex-wrap gap-4">
         <input
             type="text"
             name="search"
@@ -31,6 +31,7 @@
             Reset
         </a>
     </form>
+
     <div class="flex items-center justify-between mb-6">
         <div>
             <h2 class="text-2xl font-bold text-gray-800">Hardware List</h2>
@@ -38,7 +39,6 @@
         </div>
     </div>
 
-    <!-- Hardware tabel -->
     <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
         <table class="w-full text-left">
             <thead class="bg-gray-50 text-sm text-gray-600">
@@ -46,13 +46,13 @@
                     <th class="px-6 py-3 font-semibold">Name</th>
                     <th class="px-6 py-3 font-semibold">Total</th>
                     <th class="px-6 py-3 font-semibold">Price</th>
-                    <th class="px-6 py-3 font-semibold text-right">Actions</th>
                     <th class="px-6 py-3 font-semibold">Status</th>
+                    <th class="px-6 py-3 font-semibold text-right">Actions</th>
                 </tr>
             </thead>
 
             <tbody class="divide-y divide-gray-200 text-sm">
-                @forelse ($hardware as $item)
+                @forelse ($hardwares as $item)
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 font-medium text-gray-800">
                         {{ $item->name }}
@@ -63,8 +63,9 @@
                     </td>
 
                     <td class="px-6 py-4 text-gray-700">
-                        € {{ $item->price }}
+                        € {{ number_format($item->price, 2, ',', '.') }}
                     </td>
+
                     <td class="px-6 py-4 text-gray-700">
                         @if($item->status === 'defective')
                         <span class="text-red-600 font-semibold">Defect</span>
@@ -75,32 +76,32 @@
 
                     <td class="px-6 py-4">
                         <div class="flex justify-end gap-2">
-
-                            <!-- Detail knop -->
                             <a href="{{ route('hardware.show', $item->id) }}"
                                 class="rounded-lg bg-blue-500 px-3 py-2 text-xs font-semibold text-white hover:bg-blue-600 transition">
                                 Detail
                             </a>
 
-                            <!-- Uitleen knop -->
-                            <a href="{{ route ('uitleen.index')}}"
+                            @if($item->status === 'available' && $item->total > 0)
+                            <a href="{{ route('uitleen.create') }}"
                                 class="rounded-lg bg-red-500 px-3 py-2 text-xs font-semibold text-white hover:bg-red-600 transition">
-                                Uitleenen
+                                Aanvragen
                             </a>
-
+                            @else
+                            <span class="rounded-lg bg-gray-300 px-3 py-2 text-xs font-semibold text-gray-600 cursor-not-allowed">
+                                Niet beschikbaar
+                            </span>
+                            @endif
                         </div>
                     </td>
                 </tr>
-
                 @empty
                 <tr>
-                    <td colspan="4" class="px-6 py-10 text-center text-gray-500">
-                        no hardware found.
+                    <td colspan="5" class="px-6 py-10 text-center text-gray-500">
+                        Geen hardware gevonden.
                     </td>
                 </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
-
 </x-app-layout>
